@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Manager</title>
+</head>
+<body>
+    <h1>Contact Manager</h1>
+
+    <h2>Add Contact</h2>
+    <form action="/add" method="post">
+        <label>Name: <input type="text" name="name" required></label><br>
+        <label>Phone: <input type="text" name="phone" required></label><br>
+        <label>Email: <input type="text" name="email"></label><br>
+        <label>Address: <input type="text" name="address"></label><br>
+        <input type="submit" value="Add Contact">
+    </form>
+
+    <h2>Contact List</h2>
+    <ul>
+        {% for contact in contacts %}
+            <li>
+                {{ contact.name }} - {{ contact.phone }}
+                <form action="/delete/{{ loop.index0 }}" method="post" style="display:inline;">
+                    <input type="submit" value="Delete">
+                </form>
+                <form action="/update/{{ loop.index0 }}" method="post" style="display:inline;">
+                    <input type="text" name="name" placeholder="New Name" value="{{ contact.name }}">
+                    <input type="text" name="phone" placeholder="New Phone" value="{{ contact.phone }}">
+                    <input type="text" name="email" placeholder="New Email" value="{{ contact.email }}">
+                    <input type="text" name="address" placeholder="New Address" value="{{ contact.address }}">
+                    <input type="submit" value="Update">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
